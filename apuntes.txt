@@ -1,6 +1,21 @@
 Notas bootcamp JS
+**************************** DUDAS ****************************
+¿Que hace ReactDOM.render?
 
-************** COMANDOS **************
+Investigar teoria de renderizar y estados react
+
+**************************** TIPS ****************************
+
+************** Javascript **************
+1)Cuando se exporta export default nombre_archivo se debe importar sin llaves
+de esta forma import nombre_archivo from './components/FormPersons';
+
+De exportarse directamente en la variable/constante, se debe usar llaves
+de esta forma import { useState, useEffect } from "react";
+
+2)
+
+**************************** COMANDOS ****************************
 
 ************** LINUX **************
 take: Este comando va seguido del nombre de la carpeta para crear una carpeta y entrar en ella (take documentos)
@@ -9,10 +24,22 @@ ls: Te muestra la lista de los archivos
 pwd: Te muestra en que path estas
 cd: Se usa para cambiar de carpetas
 code: code con un espacio y un punto (code .) te abri el VS CODE en la carpeta que te encuentras actualmente de la terminal
-
+cp: Copia la carpeta y la pega en otro directorio (cp ej_2-11_2-14 ej_3-15_1-16)
 
 
 ************** VS CODE ********************
-rafce: Este comando te sirve para crear la funcion y el import mas el export de un componente con el mismo nombre que el archivo
+rafce: Este comando te sirve para crear la funcion y 
+el import mas el export de un componente con el 
+mismo nombre que el archivo
+
+npx create-react-app nombre_aplicacion: Esto te deja un 
+proyecto vacío con la última versión de react 
+(create-react-app sikrio)
+
+npx json-server --port 3001 --watch db.json: Esto te simula
+un servidor local basado en un json --> tienes que estar en 
+la carpeta donde esta el proyecto
+
+
 
 
