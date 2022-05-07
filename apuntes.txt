@@ -1,0 +1,18 @@
+Notas bootcamp JS
+
+************** COMANDOS **************
+
+************** LINUX **************
+take: Este comando va seguido del nombre de la carpeta para crear una carpeta y entrar en ella (take documentos)
+mkdir: Solo crea la carpeta (mkdir archivos)
+ls: Te muestra la lista de los archivos
+pwd: Te muestra en que path estas
+cd: Se usa para cambiar de carpetas
+code: code con un espacio y un punto (code .) te abri el VS CODE en la carpeta que te encuentras actualmente de la terminal
+
+
+
+************** VS CODE ********************
+rafce: Este comando te sirve para crear la funcion y el import mas el export de un componente con el mismo nombre que el archivo
+
+
