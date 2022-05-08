@@ -14,16 +14,40 @@ function App() {
   const newNumber = useRef("");
   const filter = useRef("");
 
+  const postPersons = async (newPerson) => {
+    await fetch("http://localhost:3001/persons", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPerson),
+    });
+  };
+
+  const maxId = (persons) => {
+    return (
+      persons.reduce((acc, element) => {
+        if (element.id > acc) {
+          return (acc = element.id);
+        }
+      }, 0) + 1
+    );
+  };
+
   const addRecord = (event) => {
     event.preventDefault();
+    const maxIdPerson = maxId(backupPersons);
     const newPerson = {
       name: newName.current.value,
       number: newNumber.current.value,
+      id: maxIdPerson,
     };
+    console.log(newPerson);
     const personExists = persons.some(
       (person) => person.name === newPerson.name
     );
     if (!personExists) {
+      postPersons(newPerson);
       setPersons((prevPersons) => [...prevPersons, newPerson]);
       setBackupPersons((prevPersons) => [...prevPersons, newPerson]);
     } else {
@@ -59,19 +83,6 @@ function App() {
     };
     requestData();
   }, []);
-
-  /* useEffect(() => {
-    const postPersons = async () => {
-      const request = await fetch("http://localhost:3001/persons", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPerson),
-      });
-      const requestJson = await request.json();
-    };
-  }); */
 
   return (
     <div>
