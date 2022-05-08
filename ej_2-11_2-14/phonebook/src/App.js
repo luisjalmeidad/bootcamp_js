@@ -4,6 +4,7 @@ import "./App.css";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import postPerson from "./services/postPerson";
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -14,44 +15,42 @@ function App() {
   const newNumber = useRef("");
   const filter = useRef("");
 
-  const postPersons = async (newPerson) => {
-    await fetch("http://localhost:3001/persons", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newPerson),
-    });
-  };
-
-  const maxId = (persons) => {
-    return (
-      persons.reduce((acc, element) => {
-        if (element.id > acc) {
-          return (acc = element.id);
-        }
-      }, 0) + 1
-    );
+  const requestData = async () => {
+    const requestJson = await fetch("http://localhost:3001/persons");
+    const data = await requestJson.json();
+    setBackupPersons(data);
+    setPersons(data);
   };
 
   const addRecord = (event) => {
     event.preventDefault();
-    const maxIdPerson = maxId(backupPersons);
+
     const newPerson = {
       name: newName.current.value,
       number: newNumber.current.value,
-      id: maxIdPerson,
     };
-    console.log(newPerson);
+
     const personExists = persons.some(
       (person) => person.name === newPerson.name
     );
+
     if (!personExists) {
-      postPersons(newPerson);
-      setPersons((prevPersons) => [...prevPersons, newPerson]);
-      setBackupPersons((prevPersons) => [...prevPersons, newPerson]);
+      postPerson(newPerson);
+      requestData();
     } else {
-      alert(`El nombre ${newPerson.name} ya está registrado`);
+      if (
+        window.confirm(
+          "Do you want to replace the number of " +
+            newPerson.name +
+            "?"
+        )
+      ) {
+        const search = newPerson.name.toLowerCase();
+        const filteredPersons = backupPersons.filter((person) =>
+          person.name.toLowerCase().includes(search)
+        );
+        updatePerson(filteredPersons[0], newPerson);
+      }
     }
   };
 
@@ -72,15 +71,39 @@ function App() {
     }
   };
 
+  const deletePerson = async (id) => {
+    try {
+      if (window.confirm("Do you really want delete that person?")) {
+        await fetch(`http://localhost:3001/persons/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        requestData();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updatePerson = async (oldPerson, newPerson) => {
+    const { id } = oldPerson;
+    const { name, number } = newPerson;
+    try {
+      await fetch(`http://localhost:3001/persons/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, number, id }),
+      });
+      requestData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const requestData = async () => {
-      const requestJson = await fetch(
-        "http://localhost:3001/persons"
-      );
-      const data = await requestJson.json();
-      setBackupPersons(data);
-      setPersons(data);
-    };
     requestData();
   }, []);
 
@@ -99,7 +122,7 @@ function App() {
         newNumber={newNumber}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} />
+      <Persons persons={persons} fn={deletePerson} />
     </div>
   );
 }
