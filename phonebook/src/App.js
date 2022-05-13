@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-
-import "./App.css";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import postPerson from "./services/postPerson";
+import "./App.css";
+import P from "./components/Parrafo";
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -110,12 +110,14 @@ function App() {
   return (
     <div>
       <h2>Phonebook</h2>
+      <P>Ori</P>
+      <P importante>Otra palabra</P>
       <Filter
         filter={filter}
         searchFilter={searchFilter}
         notFound={notFound}
       />
-      <h2>Add a new </h2>
+      <h2 style={{ fontWeight: "lighter" }}>Add a new </h2>
       <PersonForm
         addRecord={addRecord}
         newName={newName}

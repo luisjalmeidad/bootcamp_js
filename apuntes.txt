@@ -41,5 +41,7 @@ un servidor local basado en un json --> tienes que estar en
 la carpeta donde esta el proyecto
 
 
-
+nvm install 16.14.2 --> Esto instala una versión de node especifica
+nvm ls --> Muestra las versiones de node (La coloreada con verde es la versión en uso)
+nvm use 16.14.2 --> Cambias a otra versión ya instalada.
 
