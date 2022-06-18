@@ -4,7 +4,7 @@ const queryAllPersons = async () => {
   try {
     return await Person.find({});
   } catch (error) {
-    throw error;
+    throw new Error(`queryAllpersons: ${error}`);
   }
 };
 
@@ -12,15 +12,16 @@ const queryOnePersonById = async (id) => {
   try {
     return await Person.findById(id);
   } catch (error) {
-    throw error;
+    throw new Error(`queryOnePersonById: ${error}`);
   }
 };
 
-const queryRemoveOnePerson = (id) => {
-  return Person.findByIdAndRemove(id, (err, result) => {
-    if (err) throw err;
-    return result;
-  });
+const queryRemoveOnePerson = async (id) => {
+  try {
+    return await Person.findByIdAndRemove(id);
+  } catch (error) {
+    throw new Error(`queryRemoveOnePerson: ${error}`);
+  }
 };
 
 const queryOnePersonByName = async (name) => {
@@ -28,7 +29,7 @@ const queryOnePersonByName = async (name) => {
     const person = await Person.find({ name });
     return person;
   } catch (error) {
-    throw error;
+    throw new Error(`queryOnePersonByName: ${error}`);
   }
 };
 
@@ -38,18 +39,18 @@ const insertOnePerson = async (name, number) => {
       name,
       number,
     });
-    const savePerson = await person.save();
-    return savePerson;
+    return await person.save();
   } catch (error) {
-    throw error;
+    throw new Error(`insertOnePerson: ${error}`);
   }
 };
 
-const queryUpdateById = (id, number) => {
-  Person.findByIdAndUpdate(id, { number }, (err) => {
-    if (err) return res.status(400).end(err);
-    return res.status(200).end();
-  });
+const queryUpdateById = async (id, number) => {
+  try {
+    return await Person.findByIdAndUpdate(id, { number });
+  } catch (error) {
+    throw new Error(`queryUpdateById: ${error}`);
+  }
 };
 
 module.exports = {

@@ -65,11 +65,11 @@ const createOnePerson = async (req, res) => {
   }
 };
 
-const updateOnePerson = (req, res) => {
+const updateOnePerson = async (req, res) => {
   try {
     const { id } = req.params;
     const { number } = req.body;
-    const result = queryUpdateById(id, number);
+    const result = await queryUpdateById(id, number);
     return res.status(200).end(result);
   } catch (error) {
     return res.status(400).end(error);
