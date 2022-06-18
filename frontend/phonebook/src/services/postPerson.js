@@ -1,6 +1,6 @@
 const postPerson = async (newPerson) => {
   try {
-    await fetch("http://localhost:3001/persons", {
+    await fetch("http://localhost:3001/api/persons", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

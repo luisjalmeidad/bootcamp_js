@@ -16,7 +16,9 @@ function App() {
   const filter = useRef("");
 
   const requestData = async () => {
-    const requestJson = await fetch("http://localhost:3001/persons");
+    const requestJson = await fetch(
+      "http://localhost:3001/api/persons"
+    );
     const data = await requestJson.json();
     setBackupPersons(data);
     setPersons(data);
@@ -74,7 +76,7 @@ function App() {
   const deletePerson = async (id) => {
     try {
       if (window.confirm("Do you really want delete that person?")) {
-        await fetch(`http://localhost:3001/persons/${id}`, {
+        await fetch(`http://localhost:3001/api/persons/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -89,14 +91,14 @@ function App() {
 
   const updatePerson = async (oldPerson, newPerson) => {
     const { id } = oldPerson;
-    const { name, number } = newPerson;
+    const { number } = newPerson;
     try {
-      await fetch(`http://localhost:3001/persons/${id}`, {
+      await fetch(`http://localhost:3001/api/persons/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, number, id }),
+        body: JSON.stringify({ number }),
       });
       requestData();
     } catch (error) {
