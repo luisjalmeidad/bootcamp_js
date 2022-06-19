@@ -8,6 +8,8 @@ const morgan = require('morgan')
 const uuid = require('node-uuid')
 const routes = require('./routes')
 const app = express()
+// Ejemplo de uso de middleware
+/* const logger = require('./middlewares/logger') */
 
 morgan.token('id', function getId (req) {
   return req.id
@@ -30,9 +32,13 @@ app.use(
   )
 )
 
+// Ejemplo de uso de Middleware
+/* app.use(logger) */
+
 app.get('/', (req, res) => {
   res.send('<h2> Hello World </h2>')
 })
+
 app.use('/api', routes)
 
 const PORT = process.env.PORT
