@@ -2,7 +2,7 @@ const Person = require("../models/Person");
 
 const queryAllPersons = async () => {
   try {
-    return await Person.find({});
+    return await Person.find({}).exec();
   } catch (error) {
     throw new Error(`queryAllpersons: ${error}`);
   }
@@ -10,7 +10,7 @@ const queryAllPersons = async () => {
 
 const queryOnePersonById = async (id) => {
   try {
-    return await Person.findById(id);
+    return await Person.findById(id).exec();
   } catch (error) {
     throw new Error(`queryOnePersonById: ${error}`);
   }
@@ -18,7 +18,8 @@ const queryOnePersonById = async (id) => {
 
 const queryRemoveOnePerson = async (id) => {
   try {
-    return await Person.findByIdAndRemove(id);
+    await Person.findByIdAndRemove(id).exec();
+    return;
   } catch (error) {
     throw new Error(`queryRemoveOnePerson: ${error}`);
   }
@@ -26,7 +27,7 @@ const queryRemoveOnePerson = async (id) => {
 
 const queryOnePersonByName = async (name) => {
   try {
-    const person = await Person.find({ name });
+    const person = await Person.find({ name }).exec();
     return person;
   } catch (error) {
     throw new Error(`queryOnePersonByName: ${error}`);
@@ -47,7 +48,13 @@ const insertOnePerson = async (name, number) => {
 
 const queryUpdateById = async (id, number) => {
   try {
-    return await Person.findByIdAndUpdate(id, { number });
+    console.log("Entre en el query");
+    console.log({ number });
+    return await Person.findByIdAndUpdate(
+      id,
+      { number },
+      { new: true }
+    ).exec();
   } catch (error) {
     throw new Error(`queryUpdateById: ${error}`);
   }
