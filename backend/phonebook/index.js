@@ -1,44 +1,44 @@
-require("dotenv").config();
-require("./mongo");
+require('dotenv').config()
+require('./mongo')
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const morgan = require("morgan");
-const uuid = require("node-uuid");
-const routes = require("./routes");
-const app = express();
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const morgan = require('morgan')
+const uuid = require('node-uuid')
+const routes = require('./routes')
+const app = express()
 
-morgan.token("id", function getId(req) {
-  return req.id;
-});
+morgan.token('id', function getId (req) {
+  return req.id
+})
 
-morgan.token("body", (req) => JSON.stringify(req.body));
+morgan.token('body', (req) => JSON.stringify(req.body))
 
-function assignId(req, res, next) {
-  req.id = uuid.v4();
-  next();
+function assignId (req, res, next) {
+  req.id = uuid.v4()
+  next()
 }
 
-app.use(bodyParser.json());
-app.use(cors());
-app.use(assignId);
+app.use(bodyParser.json())
+app.use(cors())
+app.use(assignId)
 
 app.use(
   morgan(
-    ":id :method :url :status :res[content-length] - :response-time body: :body "
+    ':id :method :url :status :res[content-length] - :response-time body: :body '
   )
-);
+)
 
-app.get("/", (req, res) => {
-  res.send("<h2> Hello World </h2>");
-});
-app.use("/api", routes);
+app.get('/', (req, res) => {
+  res.send('<h2> Hello World </h2>')
+})
+app.use('/api', routes)
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`http://localhost:${PORT}`);
-  console.log(`http://localhost:${PORT}/api/persons`);
-  console.log(`http://localhost:${PORT}/api/info`);
-});
+  console.log(`Server running on port ${PORT}`)
+  console.log(`http://localhost:${PORT}`)
+  console.log(`http://localhost:${PORT}/api/persons`)
+  console.log(`http://localhost:${PORT}/api/info`)
+})

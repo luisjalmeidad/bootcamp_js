@@ -1,8 +1,8 @@
-const { Router } = require("express");
-const personRoutes = require("./personsRoutes");
+const { Router } = require('express')
+const personRoutes = require('./personsRoutes')
 
-const routes = Router();
+const routes = Router()
 
-routes.use("/persons", personRoutes);
+routes.use('/persons', personRoutes)
 
-module.exports = routes;
+module.exports = routes

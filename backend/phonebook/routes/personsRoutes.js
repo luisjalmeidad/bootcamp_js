@@ -1,18 +1,18 @@
-const { Router } = require("express");
+const { Router } = require('express')
 const {
   getAllPersons,
   getOnePerson,
   createOnePerson,
   updateOnePerson,
-  deleteOnePerson,
-} = require("../controllers/personController");
+  deleteOnePerson
+} = require('../controllers/personController')
 
-const personsRoutes = Router();
+const personsRoutes = Router()
 
-personsRoutes.get("", getAllPersons);
-personsRoutes.get("/:id", getOnePerson);
-personsRoutes.post("", createOnePerson);
-personsRoutes.put("/:id", updateOnePerson);
-personsRoutes.delete("/:id", deleteOnePerson);
+personsRoutes.get('', getAllPersons)
+personsRoutes.get('/:id', getOnePerson)
+personsRoutes.post('', createOnePerson)
+personsRoutes.put('/:id', updateOnePerson)
+personsRoutes.delete('/:id', deleteOnePerson)
 
-module.exports = personsRoutes;
+module.exports = personsRoutes

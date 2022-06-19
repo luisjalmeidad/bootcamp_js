@@ -6,13 +6,15 @@
   "scripts": {
     "start": "npm index.js",
     "dev": "nodemon index.js",
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "standard": "^17.0.0"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
@@ -22,5 +24,8 @@
     "mongoose": "^6.3.4",
     "morgan": "^1.10.0",
     "node-uuid": "^1.4.8"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
   }
 }
