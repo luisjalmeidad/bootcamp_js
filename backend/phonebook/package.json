@@ -2,26 +2,22 @@
   "name": "phonebook",
   "version": "1.0.0",
   "description": "",
-  "engines": {
-    "node": "14.x"
-  },
   "main": "index.js",
   "scripts": {
-    "start": "npm index.js",
-    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production npm index.js",
+    "dev": "cross-env NODE_ENV=devolpment nodemon index.js",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test jest --verbose --silent"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^28.1.1",
     "nodemon": "^2.0.16",
-    "standard": "^17.0.0"
+    "standard": "^17.0.0",
+    "supertest": "^6.2.3"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
@@ -33,7 +29,12 @@
     "node-uuid": "^1.4.8"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "extends": "./node_modules/standard/eslintrc.json",
+    "env": {
+      "jest": true
+    }
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
-  
 }

@@ -48,3 +48,5 @@ app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}/api/persons`)
   console.log(`http://localhost:${PORT}/api/info`)
 })
+
+module.exports = app
